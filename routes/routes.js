@@ -58,8 +58,7 @@ router.get("/api/recipes/search", function(req, res){
 
 router.get("/api/product/search/:ingredient", function(req, res){
 
-    let searchQueryURL = "https://cors-anywhere.herokuapp.com/" + 
-                           "http://api.walmartlabs.com/v1/search?" +
+    let searchQueryURL =  "http://api.walmartlabs.com/v1/search?" +
                            "apiKey=" + walmartKey +
                            "&categoryId=976759" +
                            "&query=" + req.params.ingredient; 
