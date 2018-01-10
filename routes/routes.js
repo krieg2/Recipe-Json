@@ -18,7 +18,12 @@ router.get("/api/recipe/:id", function(req, res){
 
     request(options, function (error, response, body) {
 
-        res.send(JSON.parse(body));
+        if(error){
+            console.log(error);
+            res.send({});
+        } else{
+            res.send(JSON.parse(body));
+        }
     });
 
 });
@@ -51,7 +56,12 @@ router.get("/api/recipes/search", function(req, res){
 
     request(options, function (error, response, body) {
 
-        res.send(JSON.parse(body));
+        if(error){
+            console.log(error);
+            res.send({});
+        } else{
+            res.send(JSON.parse(body));
+        }
     });
 
 });
@@ -72,7 +82,13 @@ router.get("/api/product/search/:ingredient", function(req, res){
 
     request(options, function (error, response, body) {
 
-        res.send(JSON.parse(body));
+        if(error){
+            console.log(error);
+            res.send({});
+        } else{
+            res.send(JSON.parse(body));
+        }
+
     });
 });
 
