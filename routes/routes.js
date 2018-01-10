@@ -22,7 +22,12 @@ router.get("/api/recipe/:id", function(req, res){
             console.log(error);
             res.send({});
         } else{
-            res.send(JSON.parse(body));
+            if(body === ""){
+                console.log("Response missing.");
+                res.send({});
+            } else{
+                res.send(JSON.parse(body));
+            }
         }
     });
 
@@ -60,7 +65,12 @@ router.get("/api/recipes/search", function(req, res){
             console.log(error);
             res.send({});
         } else{
-            res.send(JSON.parse(body));
+            if(body === ""){
+                console.log("Response missing.");
+                res.send({});
+            } else{
+                res.send(JSON.parse(body));
+            }
         }
     });
 
@@ -86,7 +96,12 @@ router.get("/api/product/search/:ingredient", function(req, res){
             console.log(error);
             res.send({});
         } else{
-            res.send(JSON.parse(body));
+            if(body === ""){
+                console.log("Response missing.");
+                res.send({});
+            } else{
+                res.send(JSON.parse(body));
+            }
         }
 
     });
