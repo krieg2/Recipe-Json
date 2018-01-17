@@ -3,7 +3,10 @@ const request = require("request");
 const router  = express.Router();
 const spoonacularKey = process.env.SPOONACULAR_KEY;
 const walmartKey     = process.env.WALMART_KEY;
-const spoonURL = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com";
+const giphyKey       = process.env.GIPHY_KEY;
+const spoonURL   = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com";
+const walmartURL = "http://api.walmartlabs.com/v1";
+const giphyURL   = "http://api.giphy.com/v1";
 
 // Set up the routes...
 
@@ -43,11 +46,9 @@ router.get("/api/recipes/search", function(req, res){
     if(req.query.query){
         queries += "&query="+req.query.query;
     };
-    let cuisine = "";
     if(req.query.cuisine){
         queries += "&cuisine="+req.query.cuisine;
     }
-    let type = "";
     if(req.query.type){
         queries += "&type="+req.query.type;
     }
@@ -78,7 +79,7 @@ router.get("/api/recipes/search", function(req, res){
 
 router.get("/api/product/search/:ingredient", function(req, res){
 
-    let searchQueryURL =  "http://api.walmartlabs.com/v1/search?" +
+    let searchQueryURL = walmartURL + "/search?" +
                            "apiKey=" + walmartKey +
                            "&categoryId=976759" +
                            "&query=" + req.params.ingredient; 
@@ -88,6 +89,42 @@ router.get("/api/product/search/:ingredient", function(req, res){
       headers: {
         "X-Requested-With": "XMLHttpRequest"
       }
+    };
+
+    request(options, function (error, response, body) {
+
+        if(error){
+            console.log(error);
+            res.send({});
+        } else{
+            if(body === ""){
+                console.log("Response missing.");
+                res.send({});
+            } else{
+                res.send(JSON.parse(body));
+            }
+        }
+
+    });
+});
+
+router.get("/api/giphy/trending", function(req, res){
+
+    let queryURL =  giphyURL + "/gifs/trending?" +
+                           "apiKey=" + giphyKey;
+
+    let queries = "";
+    let limit = "";
+    if(req.query.limit){
+        queries += "&limit="+req.query.limit;
+    };
+    let offset = "";
+    if(req.query.offset){
+        queries += "&offset="+req.query.offset;
+    }
+
+    let options = {
+      url: queryURL + queries
     };
 
     request(options, function (error, response, body) {
