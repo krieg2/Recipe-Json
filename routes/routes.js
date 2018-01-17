@@ -114,7 +114,6 @@ router.get("/api/giphy/trending", function(req, res){
                            "apiKey=" + giphyKey;
 
     let queries = "";
-    let limit = "";
     if(req.query.limit){
         queries += "&limit="+req.query.limit;
     };
