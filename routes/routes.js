@@ -114,13 +114,48 @@ router.get("/api/giphy/trending", function(req, res){
                            "apiKey=" + giphyKey;
 
     let queries = "";
+
     if(req.query.limit){
         queries += "&limit="+req.query.limit;
     };
-    let offset = "";
     if(req.query.offset){
         queries += "&offset="+req.query.offset;
     }
+
+    let options = {
+      url: queryURL + queries
+    };
+
+    request(options, function (error, response, body) {
+
+        if(error){
+            console.log(error);
+            res.send({});
+        } else{
+            if(body === ""){
+                console.log("Response missing.");
+                res.send({});
+            } else{
+                res.send(JSON.parse(body));
+            }
+        }
+
+    });
+});
+
+router.get("/api/giphy/search", function(req, res){
+
+    let queryURL =  giphyURL + "/gifs/search?" +
+                           "apiKey=" + giphyKey;
+
+    let queries = "&q=";
+
+    if(req.query.q){
+        queries += req.query.q;
+    }    
+    if(req.query.limit){
+        queries += "&limit="+req.query.limit;
+    };
 
     let options = {
       url: queryURL + queries
