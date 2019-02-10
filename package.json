@@ -19,8 +19,8 @@
   "homepage": "https://github.com/krieg2/Recipe-Json#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "dotenv": "^4.0.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.3",
-    "request": "^2.85.0"
+    "request": "^2.88.0"
   }
 }
